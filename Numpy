@@ -1,0 +1,29 @@
+# creating numpy arrays
+np.array(list/matrix)
+
+np.arange(0,10) # return evenly spaced values within a given interval
+np.zeros(3)
+np.zeros((5,5))
+np.ones((3,3))
+
+np.linespace(0,10,3) # return evenly spaced numbers over a specified interval
+
+np.eye(4) #create and identity matrix
+
+np.random.rand() # from uniform distribution
+np.random.randn() # normal distribution
+np.random.randint() # random integers from low to high[)
+
+arr=np.arange(25)
+arr.reshape(5,5)
+
+np.array.max()/ argmax()
+
+arr.shape #shape is an attribute that arrays have (not a method)
+arr.dtype # grab data type of the object in the array
+
+
+
+##Data is not copied, it's a view of the original array! This avoids memory problems!
+#To get a copy, need to be explicit
+arr_copy = arr.copy()
