@@ -23,6 +23,8 @@ axes.plot(x,y,'b')
 axes.set_xlabel('Set X Label')
 axes.set_ylabel('Set Y Label')
 axes.set_title('Set Title')
+axes.set_xlim(20,22)
+axes.set_ylim(30,50)
 
 fig, axes=plt.subplots(figsize=(12,3)) # Use similar to plt.figure() except use tuple unpacking to grab fig and axes
 axes.plot(x,y,'r')
