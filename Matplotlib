@@ -1,0 +1,47 @@
+import matplotlib.pyplot as plt
+%matplotlib inline % use this line to see plots in the notebook (jupyter)
+plt.show() # when using another editor
+
+plt.plot(x,y,'r') # 'r' is the color red
+plt.xlabel('X Axis Title')
+plt.ylabel('Y Axis Title')
+plt.title('plot title')
+plt.show()
+
+# Create multiplots on the same canvas
+plt.subplot(1,2,1) #(nrows, ncols, plot_number)
+plt.plot(x,y,'r')
+plt.subplot(1,2,2)
+plt.plot(y,x,'g')
+
+# Matplotlib Object Oriented Method
+# to create figure objects and then just call methods or attributes off of that object.
+fig=plt.figure(figsize=(8,4),dpi=100) #create figure(empty canvas)
+axes=fig.add_axes([0.1,0.1,0.8,0.8]) # left, bottom, width, height
+axes2=fig.add_axes([0.2,0.5,0.4,0.3])
+axes.plot(x,y,'b')
+axes.set_xlabel('Set X Label')
+axes.set_ylabel('Set Y Label')
+axes.set_title('Set Title')
+
+fig, axes=plt.subplots(figsize=(12,3)) # Use similar to plt.figure() except use tuple unpacking to grab fig and axes
+axes.plot(x,y,'r')
+
+fig, axes=plt.subplots(nrows=1,ncols=2) #axes[0], axes[1]
+for ax in axes:
+    ax.plot(x,y)
+
+plt.tight_layout() #avoid overlapping content
+
+#Saving figures
+fig.savefig('filename.png')
+
+#Legends
+ax.plot(x,x**2, label='x**2')
+ax.plot(x,x**3, label='x**3')
+ax.legend(loc=1/2/3/4/0) #upper right/ upper left/ lower left/ lower right/ optimal location
+
+#special plot types
+plt.scatter(x,y)
+plt.hist(data)
+plt.boxplot(date)
