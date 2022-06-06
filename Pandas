@@ -8,8 +8,10 @@ pd.Series(dictionary)
 Series.values/.index/.is_unique
 Series.get(index/label/list)
 Series.count() # exclude Null/NAN/empty value
+Series.sum()/.max()/.min()/.mean()
 Series.sort_values()
 Series.idxmax(): Google.max=Google[Google.idxmax()]
+Series.value_counts()
 Google.apply(function): Google.apply(lambda p: p+1)
 
 extract by index position: Google[1], Google[1:500], Google[[1,2,3]]
@@ -22,3 +24,53 @@ df.to_csv('example',index=False)
 pd.read_excel('Excel_Sample.xlsx',sheetname='Sheet1')
 df.to_excel('Excel_Sample.xlsx',sheet_name='Sheet1')
 
+df.info()/df.head()/df.tail()
+df.sum(axis=0/axis='index'): move across index
+df.sum(axis=1/axis='column'): move across columns
+#missing data
+df.dropna() # default is axis=0
+df.dropna(axis=1, inplace=True)
+df.dropna(tresh=2)
+df['A'].fillna(value=df['A'].mean())
+
+# Selection/Indexing/Extraction
+df['name'], df[['name','team']] # extract culomn from df
+df.loc['A'] # select rows based on index lable
+df.iloc[2] # select across rows by index position
+df.loc['index lable', 'column name'] #select subset of rows and columns
+df.loc[['A','B'],['W','Y']]
+
+# conditional selection
+df[bool value]
+df[df['W']>0]
+df[df['W']>0]['Y']
+df[(df['W']>0) & (df['Y'] > 1)] #For two conditions you can use | and & with parenthesis:
+
+df['new']=df['W']+df['Y'] # create a new column
+
+df.drop('new', axis=1, inplace=Ture) # remove columns
+df.drop('E', axis=0) # remove rows
+
+df.rest_index() #reset to default 0,1,...n index
+df.set_index('XXX',inplace=True) 
+
+#groupby: group rows of data together and call aggregate functions
+df.groupby('company').mean()
+df.groupby('company').sum().loc['FB']
+df.groupby('company').describe()
+
+pd.concat([df1,df2,df3]) #default is by index, column same, index increase
+pd.concat([df1,df2,df3],axis=1) #column increase
+
+pd.merge(left, right, how='inner', in='key')
+
+#Joining is a convenient method for combining the columns of two potentially differently-indexed DataFrames into a single result DataFrame.
+left.join(right, how='outer')
+
+df['col2'].unique()
+df['col2'].nunique()
+df['col2'].value_counts()
+
+df.columns/ df.index
+df.sort_values(by='col2', inplace=xxx) #default is inplace= False
+df.isnull()
