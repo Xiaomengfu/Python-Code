@@ -1,0 +1,24 @@
+# Series: single column of data
+#create a series
+pd.Series(data=list,index=labels)
+pd.Series(np.array([1,2,3], labels)
+pd.Series(dictionary)
+
+# Series.attribute  .method()
+Series.values/.index/.is_unique
+Series.get(index/label/list)
+Series.count() # exclude Null/NAN/empty value
+Series.sort_values()
+Series.idxmax(): Google.max=Google[Google.idxmax()]
+Google.apply(function): Google.apply(lambda p: p+1)
+
+extract by index position: Google[1], Google[1:500], Google[[1,2,3]]
+
+##DataFrames
+#create/ input/ output
+df=pd.DataFrame(randn(5,4),index='A B C D E'.split(), columns='W X Y Z'.split())
+df=pd.read_csv('example',index_col=xxx)
+df.to_csv('example',index=False)
+pd.read_excel('Excel_Sample.xlsx',sheetname='Sheet1')
+df.to_excel('Excel_Sample.xlsx',sheet_name='Sheet1')
+
