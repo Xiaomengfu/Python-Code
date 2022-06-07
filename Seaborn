@@ -1,0 +1,31 @@
+## distribution plot: distplot/ jointplot/ pairplot/ rugplot/ kdeplot
+import seaborn as sns
+%matplotlib inline
+
+sns.distplot(tips['total bill']) #shows the distribution of a univariate set of observations
+sns.distplot(tips['total bill'],kde=False,bins=30)
+
+#jointplot() can match up two distplots for bivariate data, Kind = 'scatter','reg','resid','kde','hex'
+sns.jointplot(x='total_bil',y='tip', data=tips, kind='scatter')
+
+#pairplot will plot pairwise relationships across an entire dataframe (for the numerical columns) and supports a color hue argument (for categorical columns).
+sns.pairplot(tips,hue='sex',palette='coolwarm')
+
+## Categorical plot: factorplot/ boxplot/ violinplot/ stripplot/ swarmplot/ barplot/ countplot
+
+#barplot and countplot:get aggregate data off a categorical feature
+sns.barplot(x='sex',y='total_bill',data=tips) #aggregate categorical data by mean
+sns.barplot(x='sex',y='total_bill',data=tips,estimator=np.std)
+sns.countplot(x='sex',data=tips)# estimator is explicitly counting the number of occurrences
+
+sns.boxplot(x='day',y='total_bill',data=tips, palette='rainbow')
+sns.boxplot(x="day", y="total_bill", hue="smoker",data=tips, palette="coolwarm")
+
+sns.violinplot(x="day", y="total_bill", data=tips,hue='sex',palette='Set1') #the violin plot features a kernel density estimation of the underlying distribution
+
+sns.stripplot(x="day", y="total_bill", data=tips,jitter=True,hue='sex',palette='Set1',split=True)
+
+sns.swarmplot(x="day", y="total_bill",hue='sex',data=tips, palette="Set1", split=True)
+
+# factorplot is the most general form of a categorical plot. It can take in a kind parameter to adjust the plot type:
+sns.factorplot(x='sex',y='total_bill',data=tips,kind='bar')
