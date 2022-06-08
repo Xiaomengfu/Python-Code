@@ -31,7 +31,7 @@ sns.swarmplot(x="day", y="total_bill",hue='sex',data=tips, palette="Set1", split
 sns.factorplot(x='sex',y='total_bill',data=tips,kind='bar')
 
 ## Matrix Plots
-sns.heatmap(tips.corr())
+sns.heatmap(tips.corr(),cmap='coolwarm')
 sns.clustermap()
 
 ## Grids: general types of plots that allow you to map plot types to rows and columns of a grid
