@@ -29,3 +29,38 @@ sns.swarmplot(x="day", y="total_bill",hue='sex',data=tips, palette="Set1", split
 
 # factorplot is the most general form of a categorical plot. It can take in a kind parameter to adjust the plot type:
 sns.factorplot(x='sex',y='total_bill',data=tips,kind='bar')
+
+## Matrix Plots
+sns.heatmap(tips.corr())
+sns.clustermap()
+
+## Grids: general types of plots that allow you to map plot types to rows and columns of a grid
+sns.PairGrid(iris) #just the grid
+g=sns.PairGrid(iris)
+g.map(plt.scatter) # map to the grid
+
+g.map_diag(plt.hist)
+g.map_upper(plt.scatter)
+g.map_lower(sns.kdeplot)
+
+sns.pairplot(iris, hue='species',palette='rainbow')
+
+#FacetGrid is the general way to create grids of plots based off of a feature
+g=sns.FacetGrid(tips, col='time',row='smoker')
+g=g.map(plt.hist,'total_bill')
+
+g = sns.FacetGrid(tips, col="time",  row="smoker",hue='sex')
+g = g.map(plt.scatter, "total_bill", "tip").add_legend()# Notice hwo the arguments come after plt.scatter call
+
+#JointGrid
+g = sns.JointGrid(x="total_bill", y="tip", data=tips)
+g = g.plot(sns.regplot, sns.distplot)
+
+# Regression Plots
+sns.lmplot(x='total_bill',y='tip',data=tips, hue='sex')
+sns.lmplot(x="total_bill", y="tip", row="sex", col="time",data=tips) # using grid: more variable separation
+
+# Style and color
+sns.set_style('white')
+sns.despine()
+
