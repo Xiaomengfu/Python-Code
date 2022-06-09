@@ -74,3 +74,26 @@ df['col2'].value_counts()
 df.columns/ df.index
 df.sort_values(by='col2', inplace=xxx) #default is inplace= False
 df.isnull()
+
+
+
+####Pandas Built-in Data Visualization
+df1['A'].hist(bins=25, alpha=0.5)
+plt.style.use('ggplot') # 'bmh'/'dark_background'/'fivethirtyeight'
+df.plot.area
+df.plot.barh
+df.plot.density
+df.plot.hist
+df.plot.line # lw (linewidth), ls (linestyle)
+df.plot.scatter
+df.plot.bar
+df.plot.box
+df.plot.hexbin
+df.plot.kde
+df.plot.pie
+df.plot(kind='hist') 
+
+df1.plot.scatter(x='A',y='B',c='C', cmap='coolwarm') # use c to color based off another column value
+
+df1.plot.scatter(x='A',y='B',s=df1['C']*200) # use s to indicate size based off another column. s parameter needs to be an array, not just the name of a column
+
