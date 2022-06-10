@@ -75,7 +75,9 @@ df.columns/ df.index
 df.sort_values(by='col2', inplace=xxx) #default is inplace= False
 df.isnull()
 
+df.to_datetime(xxx) # convert string to datetime
 
+df['Day of Week']=df['Day of Week'].map(dmap) # dmap is a dictionary
 
 ####Pandas Built-in Data Visualization
 df1['A'].hist(bins=25, alpha=0.5)
