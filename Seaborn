@@ -52,6 +52,8 @@ g=g.map(plt.hist,'total_bill')
 g = sns.FacetGrid(tips, col="time",  row="smoker",hue='sex')
 g = g.map(plt.scatter, "total_bill", "tip").add_legend()# Notice hwo the arguments come after plt.scatter call
 
+plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.) ## To relocate the legend
+
 #JointGrid
 g = sns.JointGrid(x="total_bill", y="tip", data=tips)
 g = g.plot(sns.regplot, sns.distplot)
