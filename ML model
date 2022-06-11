@@ -1,0 +1,52 @@
+### linear regression
+
+## first split up our data into an X array that contains the features to train on, and a y array with the target variable
+X=USAhousing[['Avg. Area Income', 'Avg. Area House Age', 'Avg. Area Number of Rooms','Avg. Area Number of Bedrooms', 'Area Population']]
+y=USAhousing['Price']
+
+## Train test split
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=101)
+
+## create and train model
+from sklearn.linear_model import LinearRegression
+lm = LinearRegression()
+lm.fit(X_train,y_train)
+
+## check coefficients
+print(lm.intercept_)
+print(lm.coef_)
+
+coeff_df = pd.DataFrame(lm.coef_,X.columns,columns=['Coefficient'])
+
+## prediction
+predictions = lm.predict(X_test)
+plt.scatter(y_test,predictions)
+
+sns.distplot((y_test-predictions),bins=50)  # should be normal dist
+
+## evaluation
+from sklearn import metrics
+print('MAE:', metrics.mean_absolute_error(y_test, predictions))
+print('MSE:', metrics.mean_squared_error(y_test, predictions))
+print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))
+
+
+### Logistic Regression
+sns.heatmap(train.isnull(),yticklabels=False,cbar=False,cmap='viridis') # check missing data
+
+## convert categorical features to dummy variables
+sex = pd.get_dummies(train['Sex'],drop_first=True)
+
+from sklearn.linear_model import LogisticRegression
+logmodel=LogisticRegression()
+logmodel.fit(X_train,y_train)
+predictions=logmodel.predict(X_test)
+
+# Evaluation
+from sklearn.metrics import classification_report
+print(classification_report(y_test,predictions))
+
+
+
+
