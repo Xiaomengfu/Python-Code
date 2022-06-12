@@ -52,7 +52,7 @@ print(classification_report(y_test,predictions))
 from sklearn.preprocessing import StandardScaler
 scaler=StandardScaler()
 scaler.fit(df.drop('TARGET CLASS',axis=1))
-scaled_features = scaler.transform(df.drop('TARGET CLASS',axis=1))
+scaled_features = scaler.transform(df.drop('TARGET CLASS',axis=1)) # result is np array
 df_feat = pd.DataFrame(scaled_features,columns=df.columns[:-1])
 
 #KNN model
