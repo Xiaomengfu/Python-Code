@@ -97,6 +97,20 @@ rfc.fit(X_train, y_train)
 
 rfc_pred = rfc.predict(X_test)
 
+### SVM
+from sklearn.svm import SVC
+model=SVC()
+model.fit(X_train,y_train)
+
+# Gridsearch
+param_grid = {'C': [0.1,1, 10, 100, 1000], 'gamma': [1,0.1,0.01,0.001,0.0001], 'kernel': ['rbf']} 
+from sklearn.model_selection import GridSearchCV
+grid = GridSearchCV(SVC(),param_grid,refit=True,verbose=3)
+grid.fit()
+##What fit does is a bit more involved then usual. First, it runs the same loop with cross-validation, to find the best parameter combination. Once it has the best combination, it runs fit again on all data passed to fit (without cross-validation), to built a single new model using the best parameter setting.
+grid.best_params_
+grid.best_estimator_
+
 
 ##### process of modelling
 #1. import necessary library
