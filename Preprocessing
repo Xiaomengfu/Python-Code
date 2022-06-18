@@ -1,0 +1,80 @@
+### missing data: 
+
+# Number of missing values in each column of training data
+missing_val_count_by_column = (X_train.isnull().sum())
+print(missing_val_count_by_column[missing_val_count_by_column > 0])
+
+# drop columns
+# Get names of columns with missing values
+cols_with_missing = [col for col in X_train.columns if X_train[col].isnull().any()]
+
+# Drop columns in training and validation data
+reduced_X_train = X_train.drop(cols_with_missing, axis=1)
+reduced_X_valid = X_valid.drop(cols_with_missing, axis=1)
+
+# Imputation
+from sklearn.impute import SimpleImputer
+my_imputer = SimpleImputer()
+imputed_X_train = pd.DataFrame(my_imputer.fit_transform(X_train)) # use X_train to fit, then transform
+imputed_X_valid = pd.DataFrame(my_imputer.transform(X_valid)) # transform (using the fitted one from X_train
+
+# Imputation removed column names; put them back
+imputed_X_train.columns = X_train.columns
+imputed_X_valid.columns = X_valid.columns
+
+
+
+### Categorical variables
+# Select categorical columns with relatively low cardinality (convenient but arbitrary)
+low_cardinality_cols = [cname for cname in X_train_full.columns if X_train_full[cname].nunique() < 10 and 
+                        X_train_full[cname].dtype == "object"]
+
+# Select numerical columns
+numerical_cols = [cname for cname in X_train_full.columns if X_train_full[cname].dtype in ['int64', 'float64']]
+
+# drop categorical variables:
+drop_X_train = X_train.select_dtypes(exclude=['object'])
+drop_X_valid = X_valid.select_dtypes(exclude=['object'])
+
+
+# All categorical columns
+object_cols = [col for col in X_train.columns if X_train[col].dtype == "object"]
+
+# Columns that can be safely label encoded
+good_label_cols = [col for col in object_cols if 
+                   set(X_train[col]) == set(X_valid[col])]
+        
+# Problematic columns that will be dropped from the dataset
+bad_label_cols = list(set(object_cols)-set(good_label_cols))
+
+##1.Ordinal Encoding
+
+from sklearn.preprocessing import OrdinalEncoder
+from sklearn.preprocessing import LabelEncoder
+
+ordinal_encoder = OrdinalEncoder()
+label_X_train[object_cols] = ordinal_encoder.fit_transform(X_train[object_cols])
+label_X_valid[object_cols] = ordinal_encoder.transform(X_valid[object_cols])
+
+##2. one-hot Encoding: 
+#We refer to categorical variables without an intrinsic ranking as nominal variables.
+
+from sklearn.preprocessing import OneHotEncoder
+# Apply one-hot encoder to each column with categorical data
+OH_encoder = OneHotEncoder(handle_unknown='ignore', sparse=False) ##avoid errors when the validation data contains classes that aren't represented in the training data/ ensures that the encoded columns are returned as a numpy array (instead of a sparse matrix)
+
+OH_cols_train = pd.DataFrame(OH_encoder.fit_transform(X_train[object_cols]))
+OH_cols_valid = pd.DataFrame(OH_encoder.transform(X_valid[object_cols]))
+
+# One-hot encoding removed index; put it back
+OH_cols_train.index = X_train.index
+OH_cols_valid.index = X_valid.index
+
+# Remove categorical columns (will replace with one-hot encoding)
+num_X_train = X_train.drop(object_cols, axis=1)
+num_X_valid = X_valid.drop(object_cols, axis=1)
+
+# Add one-hot encoded columns to numerical features
+OH_X_train = pd.concat([num_X_train, OH_cols_train], axis=1)
+OH_X_valid = pd.concat([num_X_valid, OH_cols_valid], axis=1)
+
