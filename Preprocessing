@@ -40,6 +40,14 @@ drop_X_valid = X_valid.select_dtypes(exclude=['object'])
 # All categorical columns
 object_cols = [col for col in X_train.columns if X_train[col].dtype == "object"]
 
+#another method to get list of categorical variables:
+# Get list of categorical variables
+s = (X_train.dtypes == 'object')
+object_cols = list(s[s].index)
+
+print("Categorical variables:")
+print(object_cols)
+
 # Columns that can be safely label encoded
 good_label_cols = [col for col in object_cols if 
                    set(X_train[col]) == set(X_valid[col])]
