@@ -97,6 +97,13 @@ rfc.fit(X_train, y_train)
 
 rfc_pred = rfc.predict(X_test)
 
+### XGBoost
+
+from xgboost import XGBRegressor
+
+my_model = XGBRegressor(n_estimators=1000, learning_rate=0.05, n_jobs=4)
+my_model.fit(X_train, y_train,early_stopping_rounds=5,eval_set=[(X_valid, y_valid)],verbose=False)
+
 ### SVM
 from sklearn.svm import SVC
 model=SVC()
