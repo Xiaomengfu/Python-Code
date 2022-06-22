@@ -147,6 +147,8 @@ print(scores.mean())
 
 
 ### Feature Engineering
+
+## MI
 # Scikit-learn has two mutual information metrics in its feature_selection module: one for real-valued targets (mutual_info_regression) and one for categorical targets (mutual_info_classif).
 from sklearn.feature_selection import mutual_info_regression
 # Label encoding for categoricals
@@ -176,3 +178,33 @@ def plot_mi_scores(scores):
     plt.barh(width, scores)
     plt.yticks(width, ticks)
     plt.title("Mutual Information Scores")
+    
+## Creating Features
+1. Math transformation
+2. Counts
+components = [ "Cement", "BlastFurnaceSlag", "FlyAsh", "Water", "Superplasticizer", "CoarseAggregate", "FineAggregate"]
+concrete["Components"] = concrete[components].gt(0).sum(axis=1)
+
+3. Interaction with categorical
+# One-hot encode Categorical feature, adding a column prefix "Cat"
+X_new = pd.get_dummies(df.Categorical, prefix="Cat")
+
+# Multiply row-by-row
+X_new = X_new.mul(df.Continuous, axis=0)
+
+# Join the new features to the feature set
+X = X.join(X_new)
+
+4. Break Down a Categorical Feature
+X_4['MSClass']=df.MSSubClass.apply(lambda x:x.split('_')[0])
+X_4["MSClass"] = df.MSSubClass.str.split("_", n=1, expand=True)[0]
+
+5. Grouped transform
+X_5["MedNhbdArea"] = df.groupby('Neighborhood')['GrLivArea'].transform('median')
+## df.groupby('Neighborhood').median()['GrLivArea'])
+
+
+ 
+ 
+ 
+ 
