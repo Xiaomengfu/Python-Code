@@ -204,6 +204,12 @@ X_5["MedNhbdArea"] = df.groupby('Neighborhood')['GrLivArea'].transform('median')
 ## df.groupby('Neighborhood').median()['GrLivArea'])
 
 
+### parsing date
+landslides['date_parsed'] = pd.to_datetime(landslides['date'], format="%m/%d/%y")
+landslides['date_parsed'] = pd.to_datetime(landslides['Date'], infer_datetime_format=True)
+day_of_month_landslides = landslides['date_parsed'].dt.day
+
+
  
  
  
